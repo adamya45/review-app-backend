@@ -9,7 +9,7 @@ exports.userValidator = [
     .isEmpty()
     .withMessage("Password is missing!")
     .isLength({ min: 8, max: 20 })
-    .withMessage("Passwor must be 8 to 20 characters long!"),
+    .withMessage("Password must be 8 to 20 characters long!"),
 ];
 
 exports.validatePassword = [
@@ -19,7 +19,16 @@ exports.validatePassword = [
     .isEmpty()
     .withMessage("Password is missing!")
     .isLength({ min: 8, max: 20 })
-    .withMessage("Passwor must be 8 to 20 characters long!"),
+    .withMessage("Password must be 8 to 20 characters long!"),
+];
+
+exports.signInvalidator = [
+  check("email").normalizeEmail().isEmail().withMessage("Email is invalid!"),
+  check("password")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("Password is missing!")
 ];
 
 exports.validate = (req, res, next) => {
