@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
   await newUser.save();
 
   //generate 6 digit OTP
-  let OTP = generateOTP;
+  let OTP = generateOTP();
 
   //store otp inside our db
   const newEmailVerificationToken = new emailVerificationToken({
@@ -120,7 +120,7 @@ exports.resendEmailVerificationToken = async (req, res) => {
       `,
   });
 
-  res.json({ message: "New OTP has been sent to your registered acount!" });
+  res.json({ message: "New OTP has been sent to your registered account!" });
 };
 
 exports.forgetPassword = async (req, res) => {
@@ -211,10 +211,7 @@ exports.signIn = async (req, res) => {
 
   const { _id, name } = user;
 
-  const jwtToken = jwt.sign(
-    { userId: user._id },
-    "dskjoienKVBWEIPkcjPIje"
-  );
+  const jwtToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
   res.json({ user: { _id, name, email, token: jwtToken } });
 };
