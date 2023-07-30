@@ -20,7 +20,7 @@ const { isValidPassResetToken } = require("../middlewares/user");
 const router = express.Router();
 
 router.post("/create", userValidator, validate, create);
-router.post("/signIn", signInvalidator, validate, signIn);
+router.post("/sign-in", signInvalidator, validate, signIn);
 router.post("/verify-email", verifyEmail);
 router.post("/resend-email-verification-token", resendEmailVerificationToken);
 router.post("/forget-password", forgetPassword);
