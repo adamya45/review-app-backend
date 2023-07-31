@@ -79,16 +79,17 @@ exports.verifyEmail = async (req, res) => {
     <h1>Welcome ${user.name} to Popcorn Perspective, thanks for choosing us.</h1>
     `,
   });
+
   const jwtToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-  res
-    .status(200)
-    .json({
+  res.status(200).json({
+    user: {
       id: user._id,
       name: user.name,
       email: user.email,
       token: jwtToken,
-      message: "Email verified successfully!",
-    });
+    },
+    message: "Email verified successfully!",
+  });
 };
 
 exports.resendEmailVerificationToken = async (req, res) => {
