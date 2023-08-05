@@ -31,9 +31,9 @@ exports.uploadImageToCloud = async (file) => {
   return { url, public_id };
 };
 
-/*exports.handleNotFound = (req, res) => {
+exports.handleNotFound = (req, res) => {
   this.sendError(res, "Not found", 404);
-};*/
+};
 
 exports.formatActor = (actor) => {
   const { name, gender, about, _id, avatar } = actor;
@@ -44,4 +44,22 @@ exports.formatActor = (actor) => {
     gender,
     avatar: avatar?.url,
   };
+};
+
+exports.parseData = (req, res, next) => {
+  const { trailer, cast, genres, tags, writers } = req.body;
+
+  console.log("trailerInfo:", trailer);
+  console.log("cast:", cast);
+  console.log("genres:", genres);
+  console.log("tags:", tags);
+  console.log("writers:", writers);
+
+  if (cast) req.body.cast = JSON.parse(cast);
+  if (genres) req.body.genres = JSON.parse(genres);
+  if (tags) req.body.tags = JSON.parse(tags);
+  if (writers) req.body.writers = JSON.parse(writers);
+  if (trailer) req.body.trailerInfo = JSON.parse(trailer);
+
+  next();
 };
